@@ -2,7 +2,15 @@
 
 A Ruby DSL and helper utilities for building CloudFormation templates dynamically.
 
-Written by [Bazaarvoice](http://www.bazaarvoice.com): see [the contributors page](https://github.com/bazaarvoice/cloudformation-ruby-dsl/graphs/contributors) and [the initial contributions](https://github.com/bazaarvoice/cloudformation-ruby-dsl/blob/master/initial_contributions.md) for more details.
+This is a fork of bazzarvoice/cloudformation-ruby-dsl. However, that gem does more than simply being a DSL. This fork cuts out the non-DSL
+feature. It provides:
+
+  - Ruby DSL to generate a CloudFormation template described in JSON
+  - A conversion tool
+
+To upload the template, you use other tools such as the AWS Ruby SDK or Fog/AWS.
+
+Original credits: Written by [Bazaarvoice](http://www.bazaarvoice.com): see [the contributors page](https://github.com/bazaarvoice/cloudformation-ruby-dsl/graphs/contributors) and [the initial contributions](https://github.com/bazaarvoice/cloudformation-ruby-dsl/blob/master/initial_contributions.md) for more details.
 
 ## Motivation
 
@@ -16,9 +24,9 @@ Additionally, CloudFormation templates are just massive JSON documents, making g
 
 ## Installation
 
-Run `gem install cloudformation-ruby-dsl` to install system-wide.
+Run `gem install cloudformation-dsl` to install system-wide.
 
-To use in a specific project, add `gem 'cloudformation-ruby-dsl'` to your Gemfile, and then run `bundle`.
+To use in a specific project, add `gem 'cloudformation-dsl'` to your Gemfile, and then run `bundle`.
 
 ## Releasing
 
@@ -36,16 +44,19 @@ To convert existing JSON templates to use the DSL, run
 
 You may need to preface this with `bundle exec` if you installed via Bundler.
 
-Make the resulting file executable (`chmod +x [NEW_NAME.rb]`). It can respond to the following subcommands (which are listed if you run without parameters):
-- `expand`: output the JSON template to the command line (takes optional `--nopretty` to minimize the output)
-- `diff`: compare output with existing JSON for a stack
-- `validate`: run validation against the stack definition
-- `create`: create a new stack from the output
-- `update`: update an existing stack from the output
-
 Below are the various functions currently available in the DSL. See [the example script](examples/cloudformation-ruby-script.rb) for more usage information.
 
 ### DSL Statements
+
+Everything should be wrapped in the following:
+
+```
+template = CloudFormationDSL.describe do
+  # ... statements ...
+end
+```
+
+Once there, you can get the JSON by calling `template.to_json`.
 
 Add the named object to the appropriate collection.
 - `parameter(name, options)` (may be marked :Immutable, which will raise error on a later change)
@@ -89,7 +100,3 @@ Additional capabilities for file inclusion, etc.
 - `load_from_file(filename)`: load the named file by a given type; currently handles YAML, JSON, and Ruby
 - `interpolate(string)`: embed CFN references into a string (`{{ref('Service')}}`) for later interpretation by the CFN engine
 - `Table.load(filename)`: load a table from the listed file, which can then be turned into mappings (via `get_map`)
-
-### Default Region
-
-The tool defaults to region `us-east-1`. To change this set either `EC2_REGION` or `AWS_DEFAULT_REGION` in your environment.
