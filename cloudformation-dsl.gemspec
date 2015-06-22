@@ -16,25 +16,22 @@
 
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cloudformation-ruby-dsl/version'
+require 'cloudformation-dsl/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "cloudformation-ruby-dsl"
   gem.version       = Cfn::Ruby::Dsl::VERSION
-  gem.authors       = ["Shawn Smith", "Dave Barcelo", "Morgan Fletcher", "Csongor Gyuricza", "Igor Polishchuk", "Nathaniel Eliot", "Jona Fenocchi", "Tony Cui"]
-  gem.email         = ["Shawn.Smith@bazaarvoice.com", "Dave.Barcelo@bazaarvoice.com", "Morgan.Fletcher@bazaarvoice.com", "Csongor.Gyuricza@bazaarvoice.com", "Igor.Polishchuk@bazaarvoice.com", "Nathaniel.Eliot@bazaarvoice.com", "Jona.Fenocchi@bazaarvoice.com", "Tony.Cui@bazaarvoice.com"]
+  gem.authors       = ["Shawn Smith", "Dave Barcelo", "Morgan Fletcher", "Csongor Gyuricza", "Igor Polishchuk", "Nathaniel Eliot", "Jona Fenocchi", "Tony Cui", 'Ho-Sheng Hsiao']
+  gem.email         = ["Shawn.Smith@bazaarvoice.com", "Dave.Barcelo@bazaarvoice.com", "Morgan.Fletcher@bazaarvoice.com", "Csongor.Gyuricza@bazaarvoice.com", "Igor.Polishchuk@bazaarvoice.com", "Nathaniel.Eliot@bazaarvoice.com", "Jona.Fenocchi@bazaarvoice.com", "Tony.Cui@bazaarvoice.com", 'talktohosh@gmail.com']
   gem.description   = %q{Ruby DSL library that provides a wrapper around the CloudFormation.}
   gem.summary       = %q{Ruby DSL library that provides a wrapper around the CloudFormation.  Written by [Bazaarvoice](http://www.bazaarvoice.com).}
-  gem.homepage      = "http://github.com/bazaarvoice/cloudformation-ruby-dsl"
+  gem.homepage      = "http://github.com/hosh/cloudformation-dsl-rb"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = %w{lib bin}
 
-  gem.add_runtime_dependency    'detabulator'
   gem.add_runtime_dependency    'json'
   gem.add_runtime_dependency    'bundler'
-  gem.add_runtime_dependency    'aws-sdk'
-  gem.add_runtime_dependency    'diffy'
 end

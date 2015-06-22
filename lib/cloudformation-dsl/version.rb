@@ -12,10 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-module Cfn
-  module Ruby
-    module Dsl
-      VERSION = "1.0.1"
-    end
-  end
+# Streamlined by Ho-Sheng Hsiao <talktohosh@gmail.com>
+
+module CloudFormationDSL
+  VERSION = "0.1.0"
 end
