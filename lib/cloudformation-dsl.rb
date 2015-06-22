@@ -5,6 +5,10 @@ module CloudFormationDSL
   autoload :Helpers,  'cloudformation_dsl/helpers'
 
   def describe(&block)
-    CloudFormationDSL.new(block)
+    CloudFormationDSL.new(&block)
+  end
+
+  def load(filename)
+    CloudFormationDSL.new(filename)
   end
 end

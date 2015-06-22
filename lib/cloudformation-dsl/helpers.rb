@@ -2,19 +2,16 @@ module CloudFormationDSL
   module Helpers
     def load_from_file(filename)
       file = File.open(filename)
-
-      begin
-        # Figure out what the file extension is and process accordingly.
-        contents = case File.extname(filename)
-                   when ".rb"; eval(file.read, nil, filename)
-                   when ".json"; JSON.load(file)
-                   when ".yaml"; YAML::load(file)
-                   else; raise("Do not recognize extension of #{filename}.")
-                   end
-      ensure
-        file.close
+      # Figure out what the file extension is and process accordingly.
+      case File.extname(filename)
+      when ".rb"; eval(file.read, nil, filename)
+      when ".json"; JSON.load(file)
+      when ".yaml"; YAML::load(file)
+      else
+        raise("Do not recognize extension of #{filename}.")
       end
-      contents
+    ensure
+      file.close
     end
 
     def find_in_map(map, key, name)

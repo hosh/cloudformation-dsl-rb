@@ -3,14 +3,27 @@ module CloudFormationDSL
   class Template
     include CloudFormationDSL::Helpers
 
-    def initialize(&block)
+    # You can supply:
+    #   - filename
+    #   - block
+    # The file located at the filename is evaluated
+    # The block will also be evaluated
+    #
+    # If both filename and block are passed, then the filename
+    # is evaluated first before the block is evaluated.
+    def initialize(filename = nil, &block)
+      @template_file = filename
+      @template_block = block
       @dict = {}
     end
 
     def evaluated_data
-      # Once evaluated, treat this as immutable
-      instance_eval(&block) if @dict.empty?
-      return @dict
+      # Once evaluated, treat this as immutable. This allows us to lazy eval the template.
+      return @dict unless @dict.empty?
+
+      # See: http://stackoverflow.com/questions/4667158/ruby-instance-eval-a-file-while-maintaining-fileline-in-stacktrace
+      instance_eval(File.read(@template_file), @template_file)
+      instance_eval(@template_block)
     end
 
     def value(values)
