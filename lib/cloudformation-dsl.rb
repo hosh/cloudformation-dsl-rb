@@ -2,13 +2,13 @@ require "cloudformation-dsl/version"
 
 module CloudFormationDSL
   autoload :Template, 'cloudformation-dsl/template'
-  autoload :Helpers,  'cloudformation_dsl/helpers'
+  autoload :Helpers,  'cloudformation-dsl/helpers'
 
-  def describe(&block)
-    CloudFormationDSL.new(&block)
+  def self.describe(&block)
+    CloudFormationDSL::Template.new(&block)
   end
 
-  def load(filename)
-    CloudFormationDSL.new(filename)
+  def self.load_from(filename)
+    CloudFormationDSL::Template.new(filename)
   end
 end

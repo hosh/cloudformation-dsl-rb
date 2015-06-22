@@ -19,8 +19,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'cloudformation-dsl/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "cloudformation-ruby-dsl"
-  gem.version       = Cfn::Ruby::Dsl::VERSION
+  gem.name          = "cloudformation-dsl"
+  gem.version       = CloudFormationDSL::VERSION
   gem.authors       = ["Shawn Smith", "Dave Barcelo", "Morgan Fletcher", "Csongor Gyuricza", "Igor Polishchuk", "Nathaniel Eliot", "Jona Fenocchi", "Tony Cui", 'Ho-Sheng Hsiao']
   gem.email         = ["Shawn.Smith@bazaarvoice.com", "Dave.Barcelo@bazaarvoice.com", "Morgan.Fletcher@bazaarvoice.com", "Csongor.Gyuricza@bazaarvoice.com", "Igor.Polishchuk@bazaarvoice.com", "Nathaniel.Eliot@bazaarvoice.com", "Jona.Fenocchi@bazaarvoice.com", "Tony.Cui@bazaarvoice.com", 'talktohosh@gmail.com']
   gem.description   = %q{Ruby DSL library that provides a wrapper around the CloudFormation.}

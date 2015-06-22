@@ -17,13 +17,18 @@ module CloudFormationDSL
       @dict = {}
     end
 
+    def aws_region
+      ENV['EC2_REGION'] || ENV['AWS_DEFAULT_REGION'] || 'us-east-1'
+    end
+
     def evaluated_data
       # Once evaluated, treat this as immutable. This allows us to lazy eval the template.
       return @dict unless @dict.empty?
 
       # See: http://stackoverflow.com/questions/4667158/ruby-instance-eval-a-file-while-maintaining-fileline-in-stacktrace
-      instance_eval(File.read(@template_file), @template_file)
-      instance_eval(@template_block)
+      instance_eval(File.read(@template_file), @template_file) if @template_file
+      instance_eval(@template_block)                           if @template_block
+      return @dict
     end
 
     def value(values)
@@ -46,7 +51,6 @@ module CloudFormationDSL
     # DSL for major sections
     def parameter(name, options)
       default(:Parameters, {})[name] = options
-      @parameters[name] ||= options[:Default]
     end
 
     def condition(name, options) default(:Conditions, {})[name] = options end
